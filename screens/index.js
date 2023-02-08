@@ -1,4 +1,4 @@
-import AboutScreen from './AboutScreen';
+import Discover from './Discover';
 import HomeScreen from './HomeScreen';
 
-export { AboutScreen, HomeScreen };
+export { Discover, HomeScreen };

@@ -1,10 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { TailwindProvider } from 'tailwindcss-react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, AboutScreen } from './screens/index.js';
+import { HomeScreen, Discover } from './screens/index.js';
+import { StatusBar } from 'expo-status-bar';
+
+// YouTube video url of this project
+// https://www.youtube.com/watch?v=JqPezeQiwxk
 
 const Stack = createNativeStackNavigator();
 
@@ -14,9 +16,9 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name='Home' component={HomeScreen} />
-          <Stack.Screen name='About' component={AboutScreen} />
+          <Stack.Screen name='Discover' component={Discover} />
         </Stack.Navigator>
-        <StatusBar style='auto' />
+        {/* <StatusBar style='auto' /> */}
       </NavigationContainer>
     </TailwindProvider>
   );
