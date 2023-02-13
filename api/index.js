@@ -2,18 +2,30 @@ import axios from 'axios';
 
 export const getPlacesData = async () => {
   try {
-    await axios.get(
-      `https://hotels-com-provider.p.rapidapi.com/v2/hotels/details`,
+    const {
+      data: { data },
+    } = await axios.get(
+      `https://travel-advisor.p.rapidapi.com/restaurants/list`,
       {
-        params: { domain: 'AE', locale: 'en_GB', hotel_id: '1105156' },
+        params: {
+          location_id: '293919',
+          restaurant_tagcategory: '10591',
+          restaurant_tagcategory_standalone: '10591',
+          currency: 'INR',
+          lunit: 'km',
+          limit: '50',
+          open_now: 'false',
+          lang: 'en_US',
+        },
         headers: {
           'X-RapidAPI-Key':
-            '9ae521b72dmsh372cbb3ef6bb160p17e9adjsne77a941ed6e4',
-          'X-RapidAPI-Host': 'hotels-com-provider.p.rapidapi.com',
+            'b949cc7f5bmsh31ae672e08329a8p195115jsn6a73be1f5692',
+          'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
         },
       },
     );
+    return data;
   } catch (error) {
-    return null;
+    return console.log('limit exceeded for today');
   }
 };

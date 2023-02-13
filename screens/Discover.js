@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Attractions,
@@ -22,6 +22,7 @@ import {
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { ItemCardContainer, MenuContainer } from '../components';
 import { FontAwesome } from '@expo/vector-icons';
+import { getPlacesData } from '../api';
 
 const Discover = () => {
   const navigation = useNavigation();
@@ -29,9 +30,22 @@ const Discover = () => {
   const [type, setType] = useState('restaurants');
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    getPlacesData().then((data) => {
+      // console.log('data', data);
+      // console.log(pic, data.photo.images.thumbnail.url);
+      setData(data);
+      setInterval(() => {
+        setLoading(false);
+      }, 2000);
     });
   }, []);
 
@@ -106,7 +120,7 @@ const Discover = () => {
 
           {/* list section */}
           <View>
-            <View className='flex flex-row items-center justify-between px-6 mt-8'>
+            <View className='flex flex-row items-center justify-between px-4 mt-8'>
               <Text className='text-[#2C7379] text-[24px] font-bold '>
                 Top Tips
               </Text>
@@ -119,21 +133,22 @@ const Discover = () => {
                 />
               </TouchableOpacity>
             </View>
-            <View className='px-3 mt-8 items-center justify-evenly flex-row flex flex-wrap'>
+            <View className='px-2 mt-8 items-center justify-evenly flex-row flex flex-wrap'>
               {data?.length > 0 ? (
                 <>
-                  <ItemCardContainer
-                    key={'101'}
-                    imageSrc={HeroImage}
-                    title='Sample'
-                    location='New Delhi'
-                  />
-                  <ItemCardContainer
-                    key={'102'}
-                    imageSrc={HeroImage}
-                    title='Sample 2'
-                    location='Delhi'
-                  />
+                  {data?.map((data, i) => {
+                    <ItemCardContainer
+                      key={i}
+                      // imageSrc={
+                      //   data?.photo?.images?.thumbnail?.url
+                      //     ? data?.photo?.images?.thumbnail?.url
+                      //     : 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fsimple-restaurant-logo-design-template-image139794464&psig=AOvVaw2KqvTS3HHTQYs31Na9SaK2&ust=1676379017154000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDmytfEkv0CFQAAAAAdAAAAABAD'
+                      // }
+                      imageSrc={HeroImage}
+                      title={data?.name}
+                      location={data?.location_string}
+                    />;
+                  })}
                 </>
               ) : (
                 <>
