@@ -5,13 +5,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Attractions, Avatar, Hotels, Restaurants } from '../assets';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { MenuContainer } from '../components';
+import { ItemCardContainer, MenuContainer } from '../components';
+import { FontAwesome, fontAwesome } from '@expo/vector-icons';
 
 const Discover = () => {
   const navigation = useNavigation();
@@ -41,7 +43,7 @@ const Discover = () => {
           />
         </View>
       </View>
-      <View className='flex flex-row items-center bg-white border  mx-4 rounded-xl py-1 px-4 shadow-md  mt-4'>
+      <View className='flex flex-row items-center bg-white border mx-4 rounded-xl py-1 px-4 shadow-md  mt-4'>
         <GooglePlacesAutocomplete
           GooglePlacesDetailsQuery={{ fields: 'geometry' }}
           fetchDetails={true}
@@ -58,7 +60,7 @@ const Discover = () => {
       </View>
       {/* Menu container */}
       <ScrollView>
-        <View className='flex flex-row items-center justify-center px-8 mt-8'>
+        <View className='flex flex-row items-center justify-between px-8 mt-8'>
           <MenuContainer
             key={'hotels'}
             title='Hotels'
@@ -80,6 +82,27 @@ const Discover = () => {
             type={type}
             setType={setType}
           />
+        </View>
+
+        {/* list section */}
+        <View>
+          <View className='flex flex-row items-center justify-between px-6 mt-8'>
+            <Text className='text-[#2C7379] text-[24px] font-bold '>
+              Top Tips
+            </Text>
+            <TouchableOpacity className='flex flex-row items-center justify-center px-2 space-x-2'>
+              <Text className='text-[#A0C4C7] text-[16px]'>Explore</Text>
+              <FontAwesome
+                name='long-arrow-right'
+                color={`#A0C4C7`}
+                size={24}
+              />
+            </TouchableOpacity>
+          </View>
+          <View className='px-4 mt-8 items-center justify-evenly flex-row flex flex-wrap'>
+            <ItemCardContainer key={'101'} imageSrc={''} title='' location='' />
+            <ItemCardContainer key={'102'} imageSrc={''} title='' location='' />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

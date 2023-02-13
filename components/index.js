@@ -1,3 +1,4 @@
 import MenuContainer from './MenuContainer';
+import ItemCardContainer from './ItemCardContainer';
 
-export { MenuContainer };
+export { MenuContainer, ItemCardContainer };
